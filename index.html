@@ -260,7 +260,7 @@
                     capacidad = capacidades[i].capacidad;
                 }
             }
-            if (personasAdmisibles >= cantidadPersonas) {
+            if (capacidad >= cantidadPersonas) {
                 document.getElementById("botonHall").classList.add("btn-dark");
                 document.getElementById("botonHall").classList.remove("btn-secondary");
                 document.getElementById("botonHall").disabled = false;
