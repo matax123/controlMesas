@@ -160,7 +160,7 @@
                 var correo = document.getElementById("correo").value;
                 var telefono = document.getElementById("telefono").value;
                 if (validarFormulario(nombre, correo, telefono)) {
-                    pedirReserva(sector, cantidadPersonas, nombre, correo, telefono);
+                    pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha);
                     cerrarFormulario();
                 }
             }
@@ -174,9 +174,9 @@
             return true;
         }
 
-        async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono) {
+        async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha) {
             console.log("pedir reserva")
-            axios.post("https://draftprueba.herokuapp.com/").then(
+            axios.post("https://draftprueba.herokuapp.com/post/reserva/"+cantidadPersonas+"/"+sector+"/"+nombre+"/"+correo+"/"+telefono+"/"+fecha).then(
                 function (response) {
                     console.log(response);
                 }
