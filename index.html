@@ -177,7 +177,7 @@
 
         async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha) {
             console.log("pedir reserva")
-            axios.post("https://draftprueba.herokuapp.com/post/reserva/"+cantidadPersonas+"/"+sector+"/"+nombre+"/"+correo+"/"+telefono+"/"+fecha).then(
+            axios.get("https://draftprueba.herokuapp.com/post/reserva/"+cantidadPersonas+"/"+sector+"/"+nombre+"/"+correo+"/"+telefono+"/"+fecha).then(
                 function (response) {
                     console.log(response);
                 }
