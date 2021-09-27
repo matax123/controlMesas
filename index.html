@@ -303,7 +303,7 @@
         }
 
         function readDB(fecha) {
-            axios.get("https://draftprueba.herokuapp.com/get/capacidad").then(
+            axios.get("https://draftprueba.herokuapp.com/get/capacidad/"+fecha).then(
                 function (response) {
                     capacidades = response.data;
                 }
