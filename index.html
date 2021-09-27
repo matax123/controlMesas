@@ -159,6 +159,7 @@
                 var nombre = document.getElementById("nombre").value;
                 var correo = document.getElementById("correo").value;
                 var telefono = document.getElementById("telefono").value;
+                var fecha = document.getElementById("datepicker").value;
                 if (validarFormulario(nombre, correo, telefono)) {
                     pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha);
                     cerrarFormulario();
