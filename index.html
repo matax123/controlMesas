@@ -167,7 +167,7 @@
             }
             document.getElementById("contenedorFormularioPedirMesa").style.display = "block";
         }
-        function validarFormulario(nombre, cantidadPersonas) {
+        function validarFormulario(nombre, correo, telefono) {
             if (nombre == null || nombre == "" || correo == null || correo == "" || telefono == null || telefono == "") {
                 document.getElementById("formularioOutput").innerText = "Debe ingresar su nombre, correo electrónico y número de teléfono celular"
                 return false;
@@ -176,7 +176,7 @@
         }
 
         async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha) {
-            axios.get("https://draftprueba.herokuapp.com/post/reserva/"+cantidadPersonas+"/"+sector+"/"+nombre+"/"+correo+"/"+telefono+"/"+fecha).then(
+            axios.get("https://draftprueba.herokuapp.com/post/reserva/" + cantidadPersonas + "/" + sector + "/" + nombre + "/" + correo + "/" + telefono + "/" + fecha).then(
                 function (response) {
                     alert(response.data);
                 }
@@ -190,7 +190,7 @@
             readDB();
             let capacidad = 0;
             for (let i in capacidades) {
-                if(capacidades[i].sector == "Terraza"){
+                if (capacidades[i].sector == "Terraza") {
                     capacidad = capacidades[i].capacidad;
                 }
             }
@@ -212,7 +212,7 @@
 
             capacidad = 0;
             for (let i in capacidades) {
-                if(capacidades[i].sector == "Angamos1"){
+                if (capacidades[i].sector == "Angamos1") {
                     capacidad = capacidades[i].capacidad;
                 }
             }
@@ -234,7 +234,7 @@
 
             capacidad = 0;
             for (let i in capacidades) {
-                if(capacidades[i].sector == "Angamos2"){
+                if (capacidades[i].sector == "Angamos2") {
                     capacidad = capacidades[i].capacidad;
                 }
             }
@@ -256,7 +256,7 @@
 
             capacidad = 0;
             for (let i in capacidades) {
-                if(capacidades[i].sector == "Hall"){
+                if (capacidades[i].sector == "Hall") {
                     capacidad = capacidades[i].capacidad;
                 }
             }
@@ -278,7 +278,7 @@
 
             capacidad = 0;
             for (let i in capacidades) {
-                if(capacidades[i].sector == "VIP"){
+                if (capacidades[i].sector == "VIP") {
                     capacidad = capacidades[i].capacidad;
                 }
             }
@@ -303,7 +303,7 @@
         }
 
         function readDB(fecha) {
-            axios.get("https://draftprueba.herokuapp.com/get/capacidad/"+fecha).then(
+            axios.get("https://draftprueba.herokuapp.com/get/capacidad/" + fecha).then(
                 function (response) {
                     capacidades = response.data;
                 }
