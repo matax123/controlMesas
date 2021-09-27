@@ -302,7 +302,7 @@
             document.getElementById("divMesas").style.display = "block";
         }
 
-        function readDB() {
+        function readDB(fecha) {
             axios.get("https://draftprueba.herokuapp.com/get/capacidad").then(
                 function (response) {
                     capacidades = response.data;
@@ -318,13 +318,12 @@
             fechaSeleccionada = true;
             if (cantidadPersonasSeleccionada) {
                 document.getElementById("estadoPagina").innerText = "Cargando...";
-                await readDB();
+                await readDB(document.getElementById("datepicker").value);
                 actualizarBotones();
             }
         }
 
         var cantidadPersonas = 0;
-        readDB();
         document.getElementById("cantidadPersonas").onchange = async function () {
             cantidadPersonas = document.getElementById("cantidadPersonas").value;
             if (cantidadPersonas != "seleccionar") {
