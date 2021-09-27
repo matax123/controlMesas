@@ -176,10 +176,9 @@
         }
 
         async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono, fecha) {
-            console.log("pedir reserva")
             axios.get("https://draftprueba.herokuapp.com/post/reserva/"+cantidadPersonas+"/"+sector+"/"+nombre+"/"+correo+"/"+telefono+"/"+fecha).then(
                 function (response) {
-                    console.log(response);
+                    alert(response.data);
                 }
             )
         }
@@ -306,7 +305,6 @@
         function readDB() {
             axios.get("https://draftprueba.herokuapp.com/get/capacidad").then(
                 function (response) {
-                    console.log(response.data);
                     capacidades = response.data;
                 }
             )
