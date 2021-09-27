@@ -186,8 +186,9 @@
         function cerrarFormulario() {
             document.getElementById("contenedorFormularioPedirMesa").style.setProperty("display", "none", "important");
         }
-        function actualizarBotones() {
-            readDB();
+        async function actualizarBotones() {
+            let fecha = document.getElementById("datepicker").value;
+            await readDB(fecha);
             let capacidad = 0;
             for (let i in capacidades) {
                 if (capacidades[i].sector == "Terraza") {
@@ -302,10 +303,12 @@
             document.getElementById("divMesas").style.display = "block";
         }
 
-        function readDB(fecha) {
-            axios.get("https://draftprueba.herokuapp.com/get/capacidad/" + fecha).then(
+        async function readDB(fecha) {
+            console.log("fecha = " + fecha)
+            await axios.get("https://draftprueba.herokuapp.com/get/capacidad/" + fecha).then(
                 function (response) {
                     capacidades = response.data;
+                    console.log(capacidades)
                 }
             )
         }
@@ -314,18 +317,17 @@
         var cantidadPersonasSeleccionada = false;
         var today = new Date().toISOString().slice(0, 10);
         document.getElementById("datepicker").min = today;
-        document.getElementById("datepicker").onchange = async function () {
+        document.getElementById("datepicker").onchange = function () {
             fechaSeleccionada = true;
             if (cantidadPersonasSeleccionada) {
                 document.getElementById("estadoPagina").innerText = "Cargando...";
-                await readDB(document.getElementById("datepicker").value);
                 actualizarBotones();
             }
         }
 
-        readDB(0);
+
         var cantidadPersonas = 0;
-        document.getElementById("cantidadPersonas").onchange = async function () {
+        document.getElementById("cantidadPersonas").onchange = function () {
             cantidadPersonas = document.getElementById("cantidadPersonas").value;
             if (cantidadPersonas != "seleccionar") {
                 cantidadPersonasSeleccionada = true;
@@ -335,7 +337,6 @@
             }
             if (cantidadPersonasSeleccionada && fechaSeleccionada) {
                 document.getElementById("estadoPagina").innerText = "Cargando...";
-                await readDB();
                 actualizarBotones();
             }
         }
