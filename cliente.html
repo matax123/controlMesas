@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedir mesas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="contenedorFormularioPedirMesa" class="d-flex justify-content-center align-items-center"
+        style="width: 100vw; height: 100vh; position: fixed; z-index: 1; display: none !important; background-color: rgba(0,0,0,0.5);">
+        <form id="formularioPedirMesa" class="d-flex flex-column justify-content-center">
+            <h3 id="nombreFormulario"></h3>
+            <p id="formularioOutput"></p>
+            <div>
+                <label>Ingrese su nombre</label>
+                <input id="nombre" class="form-control" type="text" aria-label="default input">
+            </div>
+            <div>
+                <label>Ingrese su correo</label>
+                <input id="correo" class="form-control" type="email" aria-label="default input">
+            </div>
+            <div>
+                <label>Ingrese su número de teléfono</label>
+                <input id="telefono" class="form-control" type="number" aria-label="default input">
+            </div>
+            <button id="botonPedirReserva" style="margin-top: 10px;" type="button" class="btn btn-success">Pedir
+                mesa</button>
+            <button id="cerrarFormularioPedirMesa" onclick="cerrarFormulario()" style="margin-top: 5px;" type="button"
+                class="btn btn-dark">Cerrar</button>
+        </form>
+    </div>
+    <div id="app" style="min-width: 200px;">
+        <div class="d-flex justify-content-center" style="background-color: black; width: 100%;">
+            <img style="width: calc(100vw - 20px); max-width: 500px; min-width: 200px;"
+                src="https://www.dakarirestobar.cl/img/inicio/logo.png">
+        </div>
+        <div class="d-flex justify-content-center align-items-center" style="margin-top: 10px;">
+            <h3>Fecha en la que quiere reservar</h3>
+            <input id="datepicker" type="date" name="trip-start" style="margin-left: 10px;">
+        </div>
+        <div class="d-flex justify-content-center align-items-center" style="margin-top: 10px;">
+            <h3>Cantidad de personas</h3>
+            <select id="cantidadPersonas" aria-label="Default select example" style="margin-left: 10px;">
+                <option selected value="seleccionar">Seleccionar</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+            </select>
+        </div>
+        <div id="divMesas" style="display: none;">
+            <div class="d-flex justify-content-center">
+                <h2 id="estadoPagina">Sectores disponibles</h2>
+            </div>
+            <section
+                style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px;">
+                <div class="d-flex justify-content-center">
+                    <h1>Terraza</h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img style="max-width: 100%;" src="https://i.postimg.cc/13tyw0xy/Terraza.jpg" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="botonTerraza" onclick="abrirFormulario('Terraza')" style="margin-top: 10px;"
+                        type="button" class="btn btn-dark">Pedir reserva</button>
+                </div>
+            </section>
+            <section
+                style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px; margin-top: 20px;">
+                <div class="d-flex justify-content-center">
+                    <h1>Angamos primer piso</h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img style="max-width: 100%;" src="https://i.postimg.cc/BnQnN9F9/Angamos.jpg" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="botonAngamos1" onclick="abrirFormulario('Angamos1')" style="margin-top: 10px;"
+                        type="button" class="btn btn-dark">Pedir reserva</button>
+                </div>
+            </section>
+            <section
+                style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px; margin-top: 20px;">
+                <div class="d-flex justify-content-center">
+                    <h1>Angamos segundo piso</h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img style="max-width: 100%;" src="https://i.postimg.cc/VL78fSJp/Angamos-2-piso.jpg" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="botonAngamos2" onclick="abrirFormulario('Angamos2')" style="margin-top: 10px;"
+                        type="button" class="btn btn-dark">Pedir reserva</button>
+                </div>
+            </section>
+            <section
+                style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px; margin-top: 20px;">
+                <div class="d-flex justify-content-center">
+                    <h1>Hall</h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img style="max-width: 100%;" src="https://i.postimg.cc/bvkWtdvz/Hall.jpg" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="botonHall" onclick="abrirFormulario('Hall')" style="margin-top: 10px;" type="button"
+                        class="btn btn-dark">Pedir reserva</button>
+                </div>
+            </section>
+            <section
+                style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px; margin-top: 20px;">
+                <div class="d-flex justify-content-center">
+                    <h1>Zona VIP</h1>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <img style="max-width: 100%;" src="https://i.postimg.cc/3rn6ps3D/VIP.jpg" alt="">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button id="botonVIP" onclick="abrirFormulario('VIP')" style="margin-top: 10px;" type="button"
+                        class="btn btn-dark">Pedir reserva</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+        var output = document.getElementById("output");
+        var capacidades;
+
+        function abrirFormulario(sector) {
+            document.getElementById("nombreFormulario").innerText = "Sector " + sector;
+            document.getElementById("botonPedirReserva").onclick = function () {
+                var nombre = document.getElementById("nombre").value;
+                var correo = document.getElementById("correo").value;
+                var telefono = document.getElementById("telefono").value;
+                if (validarFormulario(nombre, correo, telefono)) {
+                    pedirReserva(sector, cantidadPersonas, nombre, correo, telefono);
+                    cerrarFormulario();
+                }
+            }
+            document.getElementById("contenedorFormularioPedirMesa").style.display = "block";
+        }
+        function validarFormulario(nombre, cantidadPersonas) {
+            if (nombre == null || nombre == "" || correo == null || correo == "" || telefono == null || telefono == "") {
+                document.getElementById("formularioOutput").innerText = "Debe ingresar su nombre, correo electrónico y número de teléfono celular"
+                return false;
+            }
+            return true;
+        }
+
+        async function pedirReserva(sector, cantidadPersonas, nombre, correo, telefono) {
+            console.log("pedir reserva")
+            axios.post("https://draftprueba.herokuapp.com/").then(
+                function (response) {
+                    console.log(response);
+                }
+            )
+        }
+
+        function cerrarFormulario() {
+            document.getElementById("contenedorFormularioPedirMesa").style.setProperty("display", "none", "important");
+        }
+        function actualizarBotones() {
+            readDB();
+            let capacidad = 0;
+            for (let i in capacidades) {
+                if(capacidades[i].sector == "Terraza"){
+                    capacidad = capacidades[i].capacidad;
+                }
+            }
+            if (capacidad >= cantidadPersonas) {
+                document.getElementById("botonTerraza").classList.add("btn-dark");
+                document.getElementById("botonTerraza").classList.remove("btn-secondary");
+                document.getElementById("botonTerraza").disabled = false;
+                document.getElementById("botonTerraza").onclick = function () {
+                    abrirFormulario("Terraza");
+                }
+            }
+            else {
+                document.getElementById("botonTerraza").classList.remove("btn-dark");
+                document.getElementById("botonTerraza").classList.add("btn-secondary");
+                document.getElementById("botonTerraza").disabled = true;
+                document.getElementById("botonTerraza").onclick = function () { }
+            }
+            console.log("cantidad personas admisibles en terraza = " + capacidad);
+
+            capacidad = 0;
+            for (let i in capacidades) {
+                if(capacidades[i].sector == "Angamos1"){
+                    capacidad = capacidades[i].capacidad;
+                }
+            }
+            if (capacidad >= cantidadPersonas) {
+                document.getElementById("botonAngamos1").classList.add("btn-dark");
+                document.getElementById("botonAngamos1").classList.remove("btn-secondary");
+                document.getElementById("botonAngamos1").disabled = false;
+                document.getElementById("botonAngamos1").onclick = function () {
+                    abrirFormulario("Angamos1");
+                }
+            }
+            else {
+                document.getElementById("botonAngamos1").classList.remove("btn-dark");
+                document.getElementById("botonAngamos1").classList.add("btn-secondary");
+                document.getElementById("botonAngamos1").disabled = true;
+                document.getElementById("botonAngamos1").onclick = function () { }
+            }
+            console.log("cantidad personas admisibles en angamos1 = " + personasAdmisibles);
+
+            capacidad = 0;
+            for (let i in capacidades) {
+                if(capacidades[i].sector == "Angamos2"){
+                    capacidad = capacidades[i].capacidad;
+                }
+            }
+            if (capacidad >= cantidadPersonas) {
+                document.getElementById("botonAngamos2").classList.add("btn-dark");
+                document.getElementById("botonAngamos2").classList.remove("btn-secondary");
+                document.getElementById("botonAngamos2").disabled = false;
+                document.getElementById("botonAngamos2").onclick = function () {
+                    abrirFormulario("Angamos2");
+                }
+            }
+            else {
+                document.getElementById("botonAngamos2").classList.remove("btn-dark");
+                document.getElementById("botonAngamos2").classList.add("btn-secondary");
+                document.getElementById("botonAngamos2").disabled = true;
+                document.getElementById("botonAngamos2").onclick = function () { }
+            }
+            console.log("cantidad personas admisibles en angamos2 = " + capacidad);
+
+            capacidad = 0;
+            for (let i in capacidades) {
+                if(capacidades[i].sector == "Hall"){
+                    capacidad = capacidades[i].capacidad;
+                }
+            }
+            if (personasAdmisibles >= cantidadPersonas) {
+                document.getElementById("botonHall").classList.add("btn-dark");
+                document.getElementById("botonHall").classList.remove("btn-secondary");
+                document.getElementById("botonHall").disabled = false;
+                document.getElementById("botonHall").onclick = function () {
+                    abrirFormulario("Hall");
+                }
+            }
+            else {
+                document.getElementById("botonHall").classList.remove("btn-dark");
+                document.getElementById("botonHall").classList.add("btn-secondary");
+                document.getElementById("botonHall").disabled = true;
+                document.getElementById("botonHall").onclick = function () { }
+            }
+            console.log("cantidad personas admisibles en hall = " + capacidad);
+
+            capacidad = 0;
+            for (let i in capacidades) {
+                if(capacidades[i].sector == "VIP"){
+                    capacidad = capacidades[i].capacidad;
+                }
+            }
+            if (capacidad >= cantidadPersonas) {
+                document.getElementById("botonVIP").classList.add("btn-dark");
+                document.getElementById("botonVIP").classList.remove("btn-secondary");
+                document.getElementById("botonVIP").disabled = false;
+                document.getElementById("botonVIP").onclick = function () {
+                    abrirFormulario("VIP");
+                }
+            }
+            else {
+                document.getElementById("botonVIP").classList.remove("btn-dark");
+                document.getElementById("botonVIP").classList.add("btn-secondary");
+                document.getElementById("botonVIP").disabled = true;
+                document.getElementById("botonVIP").onclick = function () { }
+            }
+            console.log("cantidad personas admisibles en VIP = " + capacidad);
+
+            document.getElementById("estadoPagina").innerText = "";
+            document.getElementById("divMesas").style.display = "block";
+        }
+
+        function readDB() {
+            axios.get("https://draftprueba.herokuapp.com/get/capacidad").then(
+                function (response) {
+                    console.log(response.data);
+                    capacidades = response.data;
+                }
+            )
+        }
+
+        var fechaSeleccionada = false;
+        var cantidadPersonasSeleccionada = false;
+        var today = new Date().toISOString().slice(0, 10);
+        document.getElementById("datepicker").min = today;
+        document.getElementById("datepicker").onchange = async function () {
+            fechaSeleccionada = true;
+            if (cantidadPersonasSeleccionada) {
+                document.getElementById("estadoPagina").innerText = "Cargando...";
+                await readDB();
+                actualizarBotones();
+            }
+        }
+
+        var cantidadPersonas = 0;
+        readDB();
+        document.getElementById("cantidadPersonas").onchange = async function () {
+            cantidadPersonas = document.getElementById("cantidadPersonas").value;
+            if (cantidadPersonas != "seleccionar") {
+                cantidadPersonasSeleccionada = true;
+            }
+            else {
+                cantidadPersonasSeleccionada = false;
+            }
+            if (cantidadPersonasSeleccionada && fechaSeleccionada) {
+                document.getElementById("estadoPagina").innerText = "Cargando...";
+                await readDB();
+                actualizarBotones();
+            }
+        }
+    </script>
+</body>
+
+</html>
