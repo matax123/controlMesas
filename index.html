@@ -181,7 +181,7 @@
                     alert(response.data);
                 }
             )
-            readDB(fecha);
+            actualizarBotones();
         }
 
         function cerrarFormulario() {
@@ -318,17 +318,17 @@
         var cantidadPersonasSeleccionada = false;
         var today = new Date().toISOString().slice(0, 10);
         document.getElementById("datepicker").min = today;
-        document.getElementById("datepicker").onchange = function () {
+        document.getElementById("datepicker").onchange = async function () {
             fechaSeleccionada = true;
             if (cantidadPersonasSeleccionada) {
                 document.getElementById("estadoPagina").innerText = "Cargando...";
-                actualizarBotones();
+                await actualizarBotones();
             }
         }
 
 
         var cantidadPersonas = 0;
-        document.getElementById("cantidadPersonas").onchange = function () {
+        document.getElementById("cantidadPersonas").onchange = async function () {
             cantidadPersonas = document.getElementById("cantidadPersonas").value;
             if (cantidadPersonas != "seleccionar") {
                 cantidadPersonasSeleccionada = true;
@@ -338,7 +338,7 @@
             }
             if (cantidadPersonasSeleccionada && fechaSeleccionada) {
                 document.getElementById("estadoPagina").innerText = "Cargando...";
-                actualizarBotones();
+                await actualizarBotones();
             }
         }
     </script>
