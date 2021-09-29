@@ -305,11 +305,9 @@
         }
 
         async function readDB(fecha) {
-            console.log("fecha = " + fecha)
             await axios.get("https://draftprueba.herokuapp.com/get/capacidad/" + fecha).then(
                 function (response) {
                     capacidades = response.data;
-                    console.log(capacidades)
                 }
             )
         }
