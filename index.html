@@ -70,10 +70,10 @@
                 <option value="20">20</option>
             </select>
         </div>
+        <div class="d-flex justify-content-center" style="margin-top: 10px;">
+            <h2 id="estadoPagina"></h2>
+        </div>
         <div id="divMesas" style="display: none;">
-            <div class="d-flex justify-content-center">
-                <h2 id="estadoPagina">Sectores disponibles</h2>
-            </div>
             <section
                 style="min-width: 100%; border-style: dashed; border-width: 2px; border-color: black; padding-bottom: 10px;">
                 <div class="d-flex justify-content-center">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button id="botonTerraza" onclick="abrirFormulario('Terraza')" style="margin-top: 10px;"
-                        type="button" class="btn btn-dark">Pedir reserva</button>
+                        type="button" class="btn btn-dark">Hacer reserva</button>
                 </div>
             </section>
             <section
@@ -97,7 +97,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button id="botonAngamos1" onclick="abrirFormulario('Angamos1')" style="margin-top: 10px;"
-                        type="button" class="btn btn-dark">Pedir reserva</button>
+                        type="button" class="btn btn-dark">Hacer reserva</button>
                 </div>
             </section>
             <section
@@ -110,7 +110,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button id="botonAngamos2" onclick="abrirFormulario('Angamos2')" style="margin-top: 10px;"
-                        type="button" class="btn btn-dark">Pedir reserva</button>
+                        type="button" class="btn btn-dark">Hacer reserva</button>
                 </div>
             </section>
             <section
@@ -123,7 +123,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button id="botonHall" onclick="abrirFormulario('Hall')" style="margin-top: 10px;" type="button"
-                        class="btn btn-dark">Pedir reserva</button>
+                        class="btn btn-dark">Hacer reserva</button>
                 </div>
             </section>
             <section
@@ -136,7 +136,7 @@
                 </div>
                 <div class="d-flex justify-content-center">
                     <button id="botonVIP" onclick="abrirFormulario('VIP')" style="margin-top: 10px;" type="button"
-                        class="btn btn-dark">Pedir reserva</button>
+                        class="btn btn-dark">Hacer reserva</button>
                 </div>
             </section>
         </div>
@@ -149,6 +149,10 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        var mobileURL = "https://api.whatsapp.com/send/?phone=56999454596&text=";
+        var pcURL = "https://web.whatsapp.com/send?phone=56999454596&text=";
 
         var output = document.getElementById("output");
         var capacidades;
@@ -197,18 +201,24 @@
                 }
             }
             if (capacidad >= cantidadPersonas) {
-                document.getElementById("botonTerraza").classList.add("btn-dark");
-                document.getElementById("botonTerraza").classList.remove("btn-secondary");
-                document.getElementById("botonTerraza").disabled = false;
+                document.getElementById("botonTerraza").innerText = "Hacer reserva";
                 document.getElementById("botonTerraza").onclick = function () {
                     abrirFormulario("Terraza");
                 }
             }
             else {
-                document.getElementById("botonTerraza").classList.remove("btn-dark");
-                document.getElementById("botonTerraza").classList.add("btn-secondary");
-                document.getElementById("botonTerraza").disabled = true;
-                document.getElementById("botonTerraza").onclick = function () { }
+                document.getElementById("botonTerraza").innerText = "Consultar disponibilidad al whatsapp";
+                document.getElementById("botonTerraza").onclick = function () {
+                    let info = fecha.split('-');
+                    let fechaHispana = info[2] + '-' + info[1] + '-' + info[0];
+                    let mensaje = "Hola! Quiero hacer una reserva para " + cantidadPersonas + " personas en el sector Terraza el día " + fechaHispana;
+                    if (isMobile) {
+                        window.open(mobileURL + encodeURI(mensaje), '_blank');
+                    }
+                    else {
+                        window.open(pcURL + encodeURI(mensaje), '_blank');
+                    }
+                }
             }
             console.log("cantidad personas admisibles en terraza = " + capacidad);
 
@@ -219,18 +229,24 @@
                 }
             }
             if (capacidad >= cantidadPersonas) {
-                document.getElementById("botonAngamos1").classList.add("btn-dark");
-                document.getElementById("botonAngamos1").classList.remove("btn-secondary");
-                document.getElementById("botonAngamos1").disabled = false;
+                document.getElementById("botonAngamos1").innerText = "Hacer reserva";
                 document.getElementById("botonAngamos1").onclick = function () {
                     abrirFormulario("Angamos1");
                 }
             }
             else {
-                document.getElementById("botonAngamos1").classList.remove("btn-dark");
-                document.getElementById("botonAngamos1").classList.add("btn-secondary");
-                document.getElementById("botonAngamos1").disabled = true;
-                document.getElementById("botonAngamos1").onclick = function () { }
+                document.getElementById("botonAngamos1").innerText = "Consultar disponibilidad al whatsapp";
+                document.getElementById("botonAngamos1").onclick = function () {
+                    let info = fecha.split('-');
+                    let fechaHispana = info[2] + '-' + info[1] + '-' + info[0];
+                    let mensaje = "Hola! Quiero hacer una reserva para " + cantidadPersonas + " personas en el sector Angamos primer piso el día " + fechaHispana;
+                    if (isMobile) {
+                        window.open(mobileURL + encodeURI(mensaje), '_blank');
+                    }
+                    else {
+                        window.open(pcURL + encodeURI(mensaje), '_blank');
+                    }
+                }
             }
             console.log("cantidad personas admisibles en angamos1 = " + capacidad);
 
@@ -241,18 +257,24 @@
                 }
             }
             if (capacidad >= cantidadPersonas) {
-                document.getElementById("botonAngamos2").classList.add("btn-dark");
-                document.getElementById("botonAngamos2").classList.remove("btn-secondary");
-                document.getElementById("botonAngamos2").disabled = false;
+                document.getElementById("botonAngamos2").innerText = "Hacer reserva";
                 document.getElementById("botonAngamos2").onclick = function () {
                     abrirFormulario("Angamos2");
                 }
             }
             else {
-                document.getElementById("botonAngamos2").classList.remove("btn-dark");
-                document.getElementById("botonAngamos2").classList.add("btn-secondary");
-                document.getElementById("botonAngamos2").disabled = true;
-                document.getElementById("botonAngamos2").onclick = function () { }
+                document.getElementById("botonAngamos2").innerText = "Consultar disponibilidad al whatsapp";
+                document.getElementById("botonAngamos2").onclick = function () {
+                    let info = fecha.split('-');
+                    let fechaHispana = info[2] + '-' + info[1] + '-' + info[0];
+                    let mensaje = "Hola! Quiero hacer una reserva para " + cantidadPersonas + " personas en el sector Angamos segundo piso el día " + fechaHispana;
+                    if (isMobile) {
+                        window.open(mobileURL + encodeURI(mensaje), '_blank');
+                    }
+                    else {
+                        window.open(pcURL + encodeURI(mensaje), '_blank');
+                    }
+                }
             }
             console.log("cantidad personas admisibles en angamos2 = " + capacidad);
 
@@ -263,18 +285,24 @@
                 }
             }
             if (capacidad >= cantidadPersonas) {
-                document.getElementById("botonHall").classList.add("btn-dark");
-                document.getElementById("botonHall").classList.remove("btn-secondary");
-                document.getElementById("botonHall").disabled = false;
+                document.getElementById("botonHall").innerText = "Hacer reserva";
                 document.getElementById("botonHall").onclick = function () {
                     abrirFormulario("Hall");
                 }
             }
             else {
-                document.getElementById("botonHall").classList.remove("btn-dark");
-                document.getElementById("botonHall").classList.add("btn-secondary");
-                document.getElementById("botonHall").disabled = true;
-                document.getElementById("botonHall").onclick = function () { }
+                document.getElementById("botonHall").innerText = "Consultar disponibilidad al whatsapp";
+                document.getElementById("botonHall").onclick = function () {
+                    let info = fecha.split('-');
+                    let fechaHispana = info[2] + '-' + info[1] + '-' + info[0];
+                    let mensaje = "Hola! Quiero hacer una reserva para " + cantidadPersonas + " personas en el sector Hall el día " + fechaHispana;
+                    if (isMobile) {
+                        window.open(mobileURL + encodeURI(mensaje), '_blank');
+                    }
+                    else {
+                        window.open(pcURL + encodeURI(mensaje), '_blank');
+                    }
+                }
             }
             console.log("cantidad personas admisibles en hall = " + capacidad);
 
@@ -285,18 +313,24 @@
                 }
             }
             if (capacidad >= cantidadPersonas) {
-                document.getElementById("botonVIP").classList.add("btn-dark");
-                document.getElementById("botonVIP").classList.remove("btn-secondary");
-                document.getElementById("botonVIP").disabled = false;
+                document.getElementById("botonVIP").innerText = "Hacer reserva";
                 document.getElementById("botonVIP").onclick = function () {
                     abrirFormulario("VIP");
                 }
             }
             else {
-                document.getElementById("botonVIP").classList.remove("btn-dark");
-                document.getElementById("botonVIP").classList.add("btn-secondary");
-                document.getElementById("botonVIP").disabled = true;
-                document.getElementById("botonVIP").onclick = function () { }
+                document.getElementById("botonVIP").innerText = "Consultar disponibilidad al whatsapp";
+                document.getElementById("botonVIP").onclick = function () {
+                    let info = fecha.split('-');
+                    let fechaHispana = info[2] + '-' + info[1] + '-' + info[0];
+                    let mensaje = "Hola! Quiero hacer una reserva para " + cantidadPersonas + " personas en el sector VIP el día " + fechaHispana;
+                    if (isMobile) {
+                        window.open(mobileURL + encodeURI(mensaje), '_blank');
+                    }
+                    else {
+                        window.open(pcURL + encodeURI(mensaje), '_blank');
+                    }
+                }
             }
             console.log("cantidad personas admisibles en VIP = " + capacidad);
 
@@ -319,7 +353,7 @@
         document.getElementById("datepicker").onchange = async function () {
             fechaSeleccionada = true;
             if (cantidadPersonasSeleccionada) {
-                document.getElementById("estadoPagina").innerText = "Cargando...";
+                document.getElementById("estadoPagina").innerHTML = "Cargando...";
                 await actualizarBotones();
             }
         }
@@ -335,7 +369,7 @@
                 cantidadPersonasSeleccionada = false;
             }
             if (cantidadPersonasSeleccionada && fechaSeleccionada) {
-                document.getElementById("estadoPagina").innerText = "Cargando...";
+                document.getElementById("estadoPagina").innerHTML = "Cargando...";
                 await actualizarBotones();
             }
         }
